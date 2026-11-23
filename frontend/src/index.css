@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root { height: 100%; }
+body { @apply bg-grid-50 text-ink antialiased; }
+:focus-visible { outline: 3px solid #1f5f9e; outline-offset: 2px; }
+.num { font-variant-numeric: tabular-nums; }
+.react-flow__attribution { font-size: 9px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
