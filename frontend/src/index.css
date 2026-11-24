@@ -15,7 +15,7 @@ body {
 }
 :focus-visible { outline: 2px solid #67e8f9; outline-offset: 2px; }
 .num { font-variant-numeric: tabular-nums; }
-.react-flow__attribution { display: none; }
+.react-flow__attribution { font-size: 9px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 
 /* Professional control-system surface palette */

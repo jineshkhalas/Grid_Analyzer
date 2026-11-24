@@ -54,8 +54,8 @@ export default function GridGraph({ grid, results, outageLineId, height = 380 })
           markerEnd: r && !reverse && !out ? arrow : undefined,
           markerStart: r && reverse && !out ? arrow : undefined,
           style: { stroke: color, strokeWidth: r ? 2 + Math.min(r.loading_pct, 120) / 40 : 2, strokeDasharray: out ? '6 5' : undefined },
-          labelStyle: { fontSize: 11, fill: '#14202b' },
-          labelBgStyle: { fill: '#fff', fillOpacity: 0.92 },
+          labelStyle: { fontSize: 11, fill: '#cfe4f5' },
+          labelBgStyle: { fill: '#0d2036', fillOpacity: 0.96, stroke: 'rgba(103, 232, 249, 0.24)' },
           labelBgPadding: [4, 2], labelBgBorderRadius: 3,
         };
       });
