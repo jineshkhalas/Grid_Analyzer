@@ -3,12 +3,12 @@ import { Handle, MarkerType, Position, ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { fmt } from '../services/validation.js';
 
-const COLORS = { normal: '#15803d', warning: '#b45309', overloaded: '#b91c1c', plain: '#4b6a88', out: '#94a3b8' };
+const COLORS = { normal: '#34d399', warning: '#fbbf24', overloaded: '#fb7185', plain: '#22d3ee', out: '#64748b' };
 
 function BusNode({ data }) {
   return (
     <div
-      className={`rounded-md border-2 bg-white px-3 py-1.5 text-center shadow-sm ${data.isRef ? 'border-grid-600' : 'border-slate-400'}`}
+      className={`rounded-md border-2 bg-white px-3 py-1.5 text-center shadow-[0_0_18px_rgba(34,211,238,0.14)] ${data.isRef ? 'border-cyan-300' : 'border-grid-200'}`}
       style={{ minWidth: 92 }}
     >
       <Handle type="target" position={Position.Top} style={{ opacity: 0, left: '50%', top: '50%' }} isConnectable={false} />

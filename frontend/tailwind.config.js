@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: '#14202b',
-        grid: { 50: '#f2f6fa', 100: '#e4ecf4', 200: '#c9d8e8', 600: '#1f5f9e', 700: '#194d82', 900: '#0f2237' },
+        ink: '#dbeafe',
+        grid: { 50: '#0b1629', 100: '#10243d', 200: '#1a3858', 600: '#22d3ee', 700: '#06b6d4', 900: '#07111f' },
       },
       fontFamily: {
         sans: ['"Segoe UI"', 'system-ui', '-apple-system', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],

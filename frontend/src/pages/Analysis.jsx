@@ -54,7 +54,7 @@ export default function Analysis() {
 
   const tabBtn = (id, label) => (
     <button type="button" role="tab" aria-selected={tab === id} onClick={() => setTab(id)}
-      className={`rounded-md px-4 py-2 text-sm font-semibold ${tab === id ? 'bg-grid-900 text-white' : 'bg-white text-ink hover:bg-grid-100'} border border-grid-200`}>
+      className={`rounded-md px-4 py-2 text-sm font-semibold ${tab === id ? 'border-cyan-300/35 bg-cyan-400/15 text-cyan-200 shadow-[0_0_14px_rgba(34,211,238,0.10)]' : 'border-grid-200 bg-white text-slate-300 hover:border-cyan-400/30 hover:bg-cyan-300/5'}`}>
       {label}
     </button>
   );

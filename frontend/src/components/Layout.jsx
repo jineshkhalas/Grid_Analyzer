@@ -24,7 +24,7 @@ export default function Layout() {
           to={l.to}
           end={l.end}
           className={({ isActive }) =>
-            `rounded-md px-3 py-2 text-sm font-medium ${isActive ? 'bg-white text-grid-900' : 'text-grid-100 hover:bg-white/10'}`
+            `rounded-md px-3 py-2 text-sm font-medium border ${isActive ? 'border-cyan-400/30 bg-cyan-300/10 text-cyan-200 shadow-[0_0_18px_rgba(34,211,238,0.12)]' : 'border-transparent text-slate-300 hover:border-cyan-400/15 hover:bg-cyan-300/5'}`
           }
         >
           {l.label}

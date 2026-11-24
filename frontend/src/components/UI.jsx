@@ -18,9 +18,9 @@ export function Card({ title, subtitle, action, children, className = '' }) {
 }
 
 const variants = {
-  primary: 'bg-grid-600 text-white hover:bg-grid-700 disabled:bg-slate-300',
-  secondary: 'border border-grid-200 bg-white text-ink hover:bg-grid-50 disabled:text-slate-400',
-  danger: 'border border-red-300 bg-white text-red-700 hover:bg-red-50 disabled:text-slate-400',
+  primary: 'border border-cyan-300/40 bg-cyan-400 text-grid-900 shadow-[0_0_18px_rgba(34,211,238,0.16)] hover:bg-cyan-300 disabled:border-grid-200 disabled:bg-slate-700 disabled:text-slate-400',
+  secondary: 'border border-grid-200 bg-white text-cyan-100 hover:border-cyan-400/40 hover:bg-cyan-300/5 disabled:text-slate-400',
+  danger: 'border border-red-400/30 bg-red-400/5 text-red-300 hover:border-red-400/50 hover:bg-red-400/10 disabled:text-slate-400',
 };
 
 export function Button({ variant = 'secondary', className = '', ...props }) {
@@ -34,11 +34,11 @@ export function Button({ variant = 'secondary', className = '', ...props }) {
 }
 
 const badgeStyles = {
-  normal: 'bg-emerald-100 text-emerald-900',
-  warning: 'bg-amber-100 text-amber-900',
-  overloaded: 'bg-red-100 text-red-900',
-  out: 'bg-slate-200 text-slate-700',
-  info: 'bg-grid-100 text-grid-900',
+  normal: 'border border-emerald-400/25 bg-emerald-400/10 text-emerald-300',
+  warning: 'border border-amber-400/25 bg-amber-400/10 text-amber-300',
+  overloaded: 'border border-red-400/25 bg-red-400/10 text-red-300',
+  out: 'border border-slate-400/25 bg-slate-400/10 text-slate-300',
+  info: 'border border-cyan-400/25 bg-cyan-400/10 text-cyan-300',
 };
 const badgeText = { normal: 'Normal', warning: 'Near limit', overloaded: 'Overloaded', out: 'Out of service' };
 
@@ -61,7 +61,7 @@ export function Field({ label, id, hint, children }) {
 }
 
 export const inputClass =
-  'w-full rounded-md border border-slate-300 bg-white px-2 py-1.5 text-sm num focus:border-grid-600';
+  'w-full rounded-md border border-grid-200 bg-grid-50 px-2 py-1.5 text-sm num focus:border-cyan-400';
 
 export function Spinner({ label = 'Loading...' }) {
   return (
@@ -74,7 +74,7 @@ export function Spinner({ label = 'Loading...' }) {
 
 export function EmptyState({ title, children, action }) {
   return (
-    <div className="rounded-lg border border-dashed border-grid-200 bg-grid-50 px-4 py-8 text-center">
+    <div className="rounded-lg border border-dashed border-cyan-400/20 bg-grid-50 px-4 py-8 text-center">
       <p className="font-semibold">{title}</p>
       {children && <p className="mx-auto mt-1 max-w-md text-sm text-slate-600">{children}</p>}
       {action && <div className="mt-3">{action}</div>}
@@ -94,15 +94,15 @@ export function ErrorBox({ title = 'Something went wrong', children }) {
 
 export function Notice({ tone = 'info', children }) {
   const tones = {
-    info: 'border-grid-200 bg-grid-50 text-grid-900',
-    warn: 'border-amber-300 bg-amber-50 text-amber-900',
-    ok: 'border-emerald-300 bg-emerald-50 text-emerald-900',
+    info: 'border-cyan-400/20 bg-cyan-400/5 text-cyan-100',
+    warn: 'border-amber-400/25 bg-amber-400/8 text-amber-200',
+    ok: 'border-emerald-400/25 bg-emerald-400/8 text-emerald-200',
   };
   return <div className={`rounded-md border px-3 py-2 text-sm ${tones[tone]}`}>{children}</div>;
 }
 
 export function Stat({ label, value, tone }) {
-  const color = tone === 'bad' ? 'text-red-700' : tone === 'good' ? 'text-emerald-700' : 'text-ink';
+  const color = tone === 'bad' ? 'text-red-300' : tone === 'good' ? 'text-emerald-300' : 'text-cyan-100';
   return (
     <div className="rounded-lg border border-grid-200 bg-white px-4 py-3">
       <p className="text-sm text-slate-600">{label}</p>
