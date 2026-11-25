@@ -11,47 +11,47 @@ export function MatrixPanels({ result }) {
   return (
     <div className="space-y-2">
       <Disclosure title={`1. Susceptance matrix B (${ids.length} x ${ids.length}), symmetric`}>
-        <p className="mb-2 text-sm text-muted">Diagonal = sum of 1/x of lines at the bus. Off-diagonal = -1/x of the line joining two buses (0 if none). Every row sums to 0, which is why the full matrix is singular.</p>
+        <p className="mb-2 text-sm text-slate-700">Diagonal = sum of 1/x of lines at the bus. Off-diagonal = -1/x of the line joining two buses (0 if none). Every row sums to 0, which is why the full matrix is singular.</p>
         <MatrixTable matrix={result.b_matrix} rowLabels={ids} colLabels={ids} caption="B" />
       </Disclosure>
       <Disclosure title={`2. Net injection vector P (generation - demand)`}>
         <VectorTable values={result.injections} labels={ids} caption="P in per-unit. Entries add up to 0." />
       </Disclosure>
       <Disclosure title={`3. Reduced system: remove reference bus ${result.reference_bus}`}>
-        <p className="mb-2 text-sm text-muted">Row and column of the reference bus are deleted from B, and its entry from P. The result is invertible when the network is connected.</p>
+        <p className="mb-2 text-sm text-slate-700">Row and column of the reference bus are deleted from B, and its entry from P. The result is invertible when the network is connected.</p>
         <div className="grid gap-4 lg:grid-cols-2">
           <MatrixTable matrix={result.reduced_matrix} rowLabels={rest} colLabels={rest} caption="Reduced B" />
           <VectorTable values={result.reduced_injections} labels={rest} caption="Reduced P" />
         </div>
       </Disclosure>
       <Disclosure title="4. Reduced inverse (for study only)">
-        <p className="mb-2 text-sm text-muted">Computed by Gauss-Jordan elimination. The angles below are NOT found by multiplying by this inverse: solving B x = P directly by Gaussian elimination with partial pivoting is faster and numerically safer than forming an inverse.</p>
+        <p className="mb-2 text-sm text-slate-700">Computed by Gauss-Jordan elimination. The angles below are NOT found by multiplying by this inverse: solving B x = P directly by Gaussian elimination with partial pivoting is faster and numerically safer than forming an inverse.</p>
         <MatrixTable matrix={result.reduced_inverse} rowLabels={rest} colLabels={rest} caption="Reduced B inverse" digits={4} />
       </Disclosure>
       <Disclosure title="5. Voltage angles">
-        <div className="relative overflow-x-auto">
-          <table className="min-w-full text-sm tabular-nums">
+        <div className="overflow-x-auto">
+          <table className="min-w-full text-sm">
             <caption className="sr-only">Voltage angles</caption>
-            <thead><tr className="border-b border-line bg-raised text-left text-muted"><th scope="col" className="px-2 py-1">Bus</th><th scope="col" className="px-2 py-1">Name</th><th scope="col" className="px-2 py-1 text-right">Angle (rad)</th><th scope="col" className="px-2 py-1 text-right">Angle (deg)</th></tr></thead>
+            <thead><tr className="border-b border-grid-200 text-left"><th scope="col" className="px-2 py-1">Bus</th><th scope="col" className="px-2 py-1">Name</th><th scope="col" className="px-2 py-1 text-right">Angle (rad)</th><th scope="col" className="px-2 py-1 text-right">Angle (deg)</th></tr></thead>
             <tbody>
               {result.angles.map((a) => (
-                <tr key={a.bus_id} className="border-b border-line hover:bg-raised/60">
+                <tr key={a.bus_id} className="border-b border-grid-100">
                   <th scope="row" className="px-2 py-1 text-left">{a.bus_id}{a.is_reference && ' (reference)'}</th>
                   <td className="px-2 py-1">{a.name}</td>
-                  <td className="px-2 py-1 text-right">{fmt(a.angle_rad, 5)}</td>
-                  <td className="px-2 py-1 text-right">{fmt(a.angle_deg, 3)}</td>
+                  <td className="num px-2 py-1 text-right">{fmt(a.angle_rad, 5)}</td>
+                  <td className="num px-2 py-1 text-right">{fmt(a.angle_deg, 3)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <p className="mt-2 text-xs text-muted">Solver: {result.solver}. Largest residual |B x - P| = {result.residual.toExponential(2)}.</p>
+        <p className="mt-2 text-xs text-slate-600">Solver: {result.solver}. Largest residual |B x - P| = {result.residual.toExponential(2)}.</p>
       </Disclosure>
       <Disclosure title="6. Graph adjacency list">
         <ul className="space-y-1 font-mono text-xs">
           {Object.entries(result.adjacency).map(([bus, nbrs]) => <li key={bus}><span className="font-semibold">{bus}</span>: {nbrs.join(', ') || 'no lines'}</li>)}
         </ul>
-        <p className="mt-2 text-xs text-muted">Connectivity was checked with breadth-first search before solving.</p>
+        <p className="mt-2 text-xs text-slate-600">Connectivity was checked with breadth-first search before solving.</p>
       </Disclosure>
     </div>
   );
@@ -119,7 +119,7 @@ export function ContingencyResults({ data, grid }) {
       <Card title="Matrices after the outage" subtitle="B was rebuilt and re-reduced without the outaged line">
         <MatrixPanels result={data.outage} />
       </Card>
-      <p className="text-xs text-muted"><Badge status="info">Tip</Badge> Compare the matrices with the base case: only the entries touching the outaged line's two buses change.</p>
+      <p className="text-xs text-slate-600"><Badge status="info">Tip</Badge> Compare the matrices with the base case: only the entries touching the outaged line's two buses change.</p>
     </div>
   );
 }

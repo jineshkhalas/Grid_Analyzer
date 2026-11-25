@@ -24,7 +24,7 @@ export default function Layout() {
           to={l.to}
           end={l.end}
           className={({ isActive }) =>
-            `rounded-r-md border-l-2 px-3 py-2 text-sm font-medium motion-safe:transition-colors ${isActive ? 'border-accent bg-raised text-ink' : 'border-transparent text-muted hover:bg-panel hover:text-ink'}`
+            `rounded-md px-3 py-2 text-sm font-medium border ${isActive ? 'border-cyan-400/30 bg-cyan-300/10 text-cyan-200 shadow-[0_0_18px_rgba(34,211,238,0.12)]' : 'border-transparent text-slate-300 hover:border-cyan-400/15 hover:bg-cyan-300/5'}`
           }
         >
           {l.label}
@@ -35,29 +35,29 @@ export default function Layout() {
 
   return (
     <div className="flex min-h-full flex-col md:flex-row">
-      <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-panel focus:p-2 focus:text-ink">Skip to content</a>
+      <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-white focus:p-2">Skip to content</a>
 
-      <header className="flex items-center justify-between border-b border-line bg-inset px-4 py-3 md:hidden">
+      <header className="flex items-center justify-between bg-grid-900 px-4 py-3 text-white md:hidden">
         <span className="font-semibold">Grid Analyzer</span>
         <button
           type="button" aria-expanded={open} aria-controls="mobile-nav"
           onClick={() => setOpen((o) => !o)}
-          className="rounded border border-line px-3 py-1 text-sm hover:bg-raised"
+          className="rounded border border-white/40 px-3 py-1 text-sm"
         >
           {open ? 'Close' : 'Menu'}
         </button>
       </header>
-      {open && <div id="mobile-nav" className="border-b border-line bg-inset p-3 md:hidden">{nav}</div>}
+      {open && <div id="mobile-nav" className="bg-grid-900 px-3 pb-3 md:hidden">{nav}</div>}
 
-      <aside className="hidden w-60 shrink-0 flex-col border-r border-line bg-inset p-4 md:flex">
+      <aside className="hidden w-60 shrink-0 flex-col bg-grid-900 p-4 text-white md:flex">
         <p className="text-lg font-semibold">Grid Analyzer</p>
-        <p className="mb-5 text-xs text-muted">DC power flow &amp; contingency</p>
+        <p className="mb-5 text-xs text-grid-200">DC power flow &amp; contingency</p>
         {nav}
-        <div className="mt-auto space-y-1 border-t border-line pt-3 text-xs text-muted">
-          <p>Editing: <span className="font-medium text-ink">{grid.name}</span>{dirty && ' (unsaved)'}</p>
+        <div className="mt-auto space-y-1 border-t border-white/15 pt-3 text-xs text-grid-200">
+          <p>Editing: <span className="font-semibold text-white">{grid.name}</span>{dirty && ' (unsaved)'}</p>
           <p>
             Storage:{' '}
-            <span className="font-medium text-ink">{storageMode === 'firestore' ? 'Firebase Firestore' : 'Demo mode (this browser)'}</span>
+            <span className="font-semibold text-white">{storageMode === 'firestore' ? 'Firebase Firestore' : 'Demo mode (this browser)'}</span>
           </p>
         </div>
       </aside>
@@ -66,7 +66,7 @@ export default function Layout() {
         <main id="main" className="mx-auto w-full max-w-6xl flex-1 space-y-5 p-4 md:p-6">
           <Outlet />
         </main>
-        <footer className="border-t border-line bg-inset px-4 py-3 text-xs text-muted">
+        <footer className="border-t border-grid-200 bg-white px-4 py-3 text-xs text-slate-600">
           Educational DC power-flow approximation. Not a real operational power-grid control or safety system.
           Values are per-unit on one common system base.
         </footer>

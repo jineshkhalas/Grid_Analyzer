@@ -69,8 +69,8 @@ export default function GridEditor() {
   return (
     <>
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Grid editor</h1>
-        <p className="text-sm text-muted">Build a network of 2 to 10 buses. All values are per-unit on one common base.</p>
+        <h1 className="text-2xl font-semibold">Grid editor</h1>
+        <p className="text-sm text-slate-600">Build a network of 2 to 10 buses. All values are per-unit on one common base.</p>
       </div>
       <ErrorBox>{error}</ErrorBox>
       {message && <Notice tone="ok">{message}</Notice>}
@@ -87,19 +87,19 @@ export default function GridEditor() {
           <Button onClick={() => confirmDiscard() && loadGrid(sampleGrid())}>Load sample network</Button>
           {grid.id && <Button onClick={() => duplicate(grid)} disabled={busy}>Duplicate</Button>}
         </div>
-        {errors.length > 0 && <p className="mt-2 text-xs text-muted">Fix the problems below before saving.</p>}
+        {errors.length > 0 && <p className="mt-2 text-xs text-slate-600">Fix the problems below before saving.</p>}
       </Card>
 
       <Card title="Saved grids" subtitle={storageMode === 'firestore' ? 'Stored in Firebase Firestore' : 'Demo mode: stored in this browser only'}>
         {loading ? <Spinner label="Loading saved grids..." /> : saved.length === 0 ? (
           <EmptyState title="No saved grids yet">Load the sample network or build your own, then click "Save grid".</EmptyState>
         ) : (
-          <ul className="divide-y divide-line">
+          <ul className="divide-y divide-grid-100">
             {saved.map((g) => (
               <li key={g.id} className="flex flex-wrap items-center justify-between gap-2 py-2">
                 <span>
                   <span className="font-medium">{g.name}</span>
-                  <span className="ml-2 text-xs text-muted">{g.buses.length} buses, {g.lines.length} lines, updated {new Date(g.updatedAt).toLocaleString()}</span>
+                  <span className="ml-2 text-xs text-slate-600">{g.buses.length} buses, {g.lines.length} lines, updated {new Date(g.updatedAt).toLocaleString()}</span>
                   {grid.id === g.id && <span className="ml-2"><Badge>Open</Badge></span>}
                 </span>
                 <span className="flex gap-2">
@@ -115,15 +115,15 @@ export default function GridEditor() {
 
       <Card title="Check before analysing">
         {errors.length > 0 ? (
-          <ul className="list-disc space-y-1 pl-5 text-sm text-red-300">{errors.map((e) => <li key={e}>{e}</li>)}</ul>
+          <ul className="list-disc space-y-1 pl-5 text-sm text-red-800">{errors.map((e) => <li key={e}>{e}</li>)}</ul>
         ) : (
           <ul className="space-y-1 text-sm">
             <li>Inputs are valid.</li>
-            <li className={balanced ? '' : 'font-medium text-red-300'}>
+            <li className={balanced ? '' : 'font-medium text-red-800'}>
               Total generation {fmt(t.generation, 3)} p.u., total demand {fmt(t.demand, 3)} p.u.
               {balanced ? ' Balanced.' : ` Out of balance by ${fmt(t.imbalance, 4)} p.u. The analysis will refuse to run.`}
             </li>
-            <li className={comps.length > 1 ? 'font-medium text-red-300' : ''}>
+            <li className={comps.length > 1 ? 'font-medium text-red-800' : ''}>
               {comps.length > 1 ? `The network is split into ${comps.length} islands: ${comps.map((c) => `{${c.join(', ')}}`).join(' ')}` : 'All buses are connected.'}
             </li>
           </ul>
@@ -132,7 +132,7 @@ export default function GridEditor() {
           <Button className="mt-3" onClick={balanceViaRef}>Set reference-bus generation to balance</Button>
         )}
         {errors.length === 0 && balanced && comps.length === 1 && (
-          <Link to="/analysis" className="mt-3 inline-block text-sm font-medium text-accent underline underline-offset-4 hover:text-accent-hover">Go to analysis</Link>
+          <Link to="/analysis" className="mt-3 inline-block text-sm font-semibold text-grid-600 underline">Go to analysis</Link>
         )}
       </Card>
 

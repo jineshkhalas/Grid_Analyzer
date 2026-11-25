@@ -29,11 +29,11 @@ export function BusTable({ grid, setGrid }) {
   };
 
   return (
-    <div className="relative overflow-x-auto">
-      <table className="w-full min-w-[36rem] text-sm tabular-nums">
+    <div className="overflow-x-auto">
+      <table className="min-w-full text-sm">
         <caption className="sr-only">Buses</caption>
         <thead>
-          <tr className="border-b border-line bg-raised text-left text-muted">
+          <tr className="border-b border-grid-200 text-left">
             <th scope="col" className="px-1 py-2">Reference</th>
             <th scope="col" className="px-1 py-2">ID</th>
             <th scope="col" className="px-1 py-2">Name</th>
@@ -44,9 +44,9 @@ export function BusTable({ grid, setGrid }) {
         </thead>
         <tbody>
           {grid.buses.map((b) => (
-            <tr key={b.id} className="border-b border-line hover:bg-raised/60">
+            <tr key={b.id} className="border-b border-grid-100">
               <td className="px-1 py-1.5">
-                <input type="radio" className="accent-accent" name="reference-bus" checked={grid.referenceBus === b.id}
+                <input type="radio" name="reference-bus" checked={grid.referenceBus === b.id}
                   onChange={() => setGrid((g) => ({ ...g, referenceBus: b.id }))} aria-label={`Use ${b.id} as reference bus`} />
               </td>
               <td className="px-1 py-1.5 font-semibold">{b.id}</td>
@@ -59,7 +59,7 @@ export function BusTable({ grid, setGrid }) {
         </tbody>
       </table>
       <Button className="mt-3" onClick={add} disabled={grid.buses.length >= 10}>Add bus</Button>
-      {grid.buses.length >= 10 && <span className="ml-2 text-xs text-muted">Maximum of 10 buses.</span>}
+      {grid.buses.length >= 10 && <span className="ml-2 text-xs text-slate-600">Maximum of 10 buses.</span>}
     </div>
   );
 }
@@ -81,11 +81,11 @@ export function LineTable({ grid, setGrid }) {
   );
 
   return (
-    <div className="relative overflow-x-auto">
-      <table className="w-full min-w-[36rem] text-sm tabular-nums">
+    <div className="overflow-x-auto">
+      <table className="min-w-full text-sm">
         <caption className="sr-only">Lines</caption>
         <thead>
-          <tr className="border-b border-line bg-raised text-left text-muted">
+          <tr className="border-b border-grid-200 text-left">
             <th scope="col" className="px-1 py-2">ID</th>
             <th scope="col" className="px-1 py-2">From bus</th>
             <th scope="col" className="px-1 py-2">To bus</th>
@@ -96,7 +96,7 @@ export function LineTable({ grid, setGrid }) {
         </thead>
         <tbody>
           {grid.lines.map((l) => (
-            <tr key={l.id} className="border-b border-line hover:bg-raised/60">
+            <tr key={l.id} className="border-b border-grid-100">
               <td className="px-1 py-1.5 font-semibold">{l.id}</td>
               <td className="px-1 py-1.5">{select(l, 'from_bus', 'From bus')}</td>
               <td className="px-1 py-1.5">{select(l, 'to_bus', 'To bus')}</td>

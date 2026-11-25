@@ -1,20 +1,21 @@
 import { useMemo } from 'react';
-import { Background, Handle, MarkerType, Position, ReactFlow } from '@xyflow/react';
+import { Handle, MarkerType, Position, ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { fmt } from '../services/validation.js';
 
-const COLORS = { normal: '#7db99d', warning: '#d9ad61', overloaded: '#e38b88', plain: '#80a3b0', out: '#8795a1' };
+const COLORS = { normal: '#34d399', warning: '#fbbf24', overloaded: '#fb7185', plain: '#22d3ee', out: '#64748b' };
 
 function BusNode({ data }) {
   return (
     <div
-      className={`min-w-[92px] rounded-md border-2 bg-panel px-3 py-1.5 text-center text-ink ${data.isRef ? 'border-sky-400/75' : 'border-line'}`}
+      className={`rounded-md border-2 bg-white px-3 py-1.5 text-center shadow-[0_0_18px_rgba(34,211,238,0.14)] ${data.isRef ? 'border-cyan-300' : 'border-grid-200'}`}
+      style={{ minWidth: 92 }}
     >
-      <Handle type="target" position={Position.Top} className="!top-1/2 opacity-0" isConnectable={false} />
+      <Handle type="target" position={Position.Top} style={{ opacity: 0, left: '50%', top: '50%' }} isConnectable={false} />
       <p className="text-sm font-semibold leading-tight">{data.id}{data.isRef ? ' (ref)' : ''}</p>
-      <p className="text-[11px] leading-tight text-muted">{data.name}</p>
-      <p className="text-[11px] leading-tight tabular-nums">G {fmt(data.generation, 2)} / D {fmt(data.demand, 2)}</p>
-      <Handle type="source" position={Position.Bottom} className="!top-1/2 opacity-0" isConnectable={false} />
+      <p className="text-[11px] leading-tight text-slate-600">{data.name}</p>
+      <p className="num text-[11px] leading-tight">G {fmt(data.generation, 2)} / D {fmt(data.demand, 2)}</p>
+      <Handle type="source" position={Position.Bottom} style={{ opacity: 0, left: '50%', top: '50%' }} isConnectable={false} />
     </div>
   );
 }
@@ -53,6 +54,8 @@ export default function GridGraph({ grid, results, outageLineId, height = 380 })
           markerEnd: r && !reverse && !out ? arrow : undefined,
           markerStart: r && reverse && !out ? arrow : undefined,
           style: { stroke: color, strokeWidth: r ? 2 + Math.min(r.loading_pct, 120) / 40 : 2, strokeDasharray: out ? '6 5' : undefined },
+          labelStyle: { fontSize: 11, fill: '#cfe4f5' },
+          labelBgStyle: { fill: '#0d2036', fillOpacity: 0.96, stroke: 'rgba(103, 232, 249, 0.24)' },
           labelBgPadding: [4, 2], labelBgBorderRadius: 3,
         };
       });
@@ -60,32 +63,23 @@ export default function GridGraph({ grid, results, outageLineId, height = 380 })
   }, [grid, results, outageLineId]);
 
   return (
-    <div style={{ height }} className="overflow-hidden rounded-md border border-line bg-inset" role="group"
+    <div style={{ height }} className="rounded-md border border-grid-200 bg-grid-50" role="img"
       aria-label={`Network diagram with ${grid.buses.length} buses and ${grid.lines.length} lines`}>
       <ReactFlow
-        colorMode="dark"
-        className="[--xy-background-color:theme(colors.inset)] [--xy-background-pattern-color:theme(colors.line)]
-          [--xy-edge-label-background-color:theme(colors.panel)] [--xy-edge-label-color:theme(colors.ink)]
-          [--xy-attribution-background-color:theme(colors.panel)] [&_text]:text-[11px]"
         nodes={nodes} edges={edges} nodeTypes={nodeTypes} fitView fitViewOptions={{ padding: 0.2 }}
         nodesDraggable={false} nodesConnectable={false} elementsSelectable={false}
         zoomOnScroll={false} preventScrolling={false} minZoom={0.3}
-      >
-        <Background gap={24} size={1} />
-      </ReactFlow>
+      />
     </div>
   );
 }
 
 export function GraphLegend() {
   return (
-    <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
+    <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-700">
       {[['normal', 'Below 80% of capacity'], ['warning', '80-100%'], ['overloaded', 'Above 100%'], ['out', 'Outaged line']].map(([k, t]) => (
         <li key={k} className="flex items-center gap-1.5">
-          <svg aria-hidden="true" className="h-1 w-5" viewBox="0 0 20 4">
-            <path d="M0 2h20" stroke={COLORS[k]} strokeWidth="3" strokeDasharray={k === 'out' ? '5 3' : undefined} />
-          </svg>
-          {t}
+          <span className="inline-block h-0.5 w-5" style={{ background: COLORS[k], height: 3 }} />{t}
         </li>
       ))}
       <li>Arrow = direction of power flow. Blue border = reference bus.</li>
