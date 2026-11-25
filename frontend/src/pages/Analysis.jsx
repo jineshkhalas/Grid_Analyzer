@@ -54,7 +54,7 @@ export default function Analysis() {
 
   const tabBtn = (id, label) => (
     <button type="button" role="tab" aria-selected={tab === id} onClick={() => setTab(id)}
-      className={`rounded-md px-4 py-2 text-sm font-semibold ${tab === id ? 'border-cyan-300/35 bg-cyan-400/15 text-cyan-200 shadow-[0_0_14px_rgba(34,211,238,0.10)]' : 'border-grid-200 bg-white text-slate-300 hover:border-cyan-400/30 hover:bg-cyan-300/5'}`}>
+      className="border-b-2 border-transparent px-3 py-2 text-sm font-medium text-muted hover:text-ink aria-selected:border-accent aria-selected:text-ink">
       {label}
     </button>
   );
@@ -62,8 +62,8 @@ export default function Analysis() {
   return (
     <>
       <div>
-        <h1 className="text-2xl font-semibold">Analysis</h1>
-        <p className="text-sm text-slate-600">Grid: <strong>{grid.name}</strong>. The analysis runs on the Python API; nothing is stored until you click Save result.</p>
+        <h1 className="text-2xl font-semibold tracking-tight">Analysis</h1>
+        <p className="text-sm text-muted">Grid: <strong>{grid.name}</strong>. The analysis runs on the Python API; nothing is stored until you click Save result.</p>
       </div>
 
       <Card title="Inputs">
@@ -76,11 +76,11 @@ export default function Analysis() {
               </select>
             </Field>
           </div>
-          {problems.length > 0 && <Link className="text-sm font-semibold text-grid-600 underline" to="/editor">Fix {problems.length} problem(s) in the editor</Link>}
+          {problems.length > 0 && <Link className="text-sm font-medium text-accent underline underline-offset-4 hover:text-accent-hover" to="/editor">Fix {problems.length} problem(s) in the editor</Link>}
         </div>
       </Card>
 
-      <div role="tablist" aria-label="Analysis type" className="flex gap-2">
+      <div role="tablist" aria-label="Analysis type" className="flex gap-2 border-b border-line">
         {tabBtn('base', 'Base case')}
         {tabBtn('contingency', 'Line outage (contingency)')}
       </div>

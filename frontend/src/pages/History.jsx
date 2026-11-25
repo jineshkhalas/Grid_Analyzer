@@ -34,8 +34,8 @@ export default function History() {
   return (
     <>
       <div>
-        <h1 className="text-2xl font-semibold">Saved results</h1>
-        <p className="text-sm text-slate-600">Snapshots of earlier base-case and outage analyses, newest first.</p>
+        <h1 className="text-2xl font-semibold tracking-tight">Saved results</h1>
+        <p className="text-sm text-muted">Snapshots of earlier base-case and outage analyses, newest first.</p>
       </div>
       <ErrorBox>{error}</ErrorBox>
       {rows === null ? <Spinner label="Loading saved results..." /> : rows.length === 0 ? (
@@ -55,7 +55,7 @@ export default function History() {
                       <p className="font-semibold">
                         {r.gridName} <Badge status={r.type === 'contingency' ? 'warning' : 'info'}>{r.type === 'contingency' ? `Outage of ${r.outageLineId}` : 'Base case'}</Badge>
                       </p>
-                      <p className="text-slate-600">
+                      <p className="text-muted">
                         {r.scenarioName} - saved {new Date(r.createdAt).toLocaleString()} -{' '}
                         {r.type === 'contingency'
                           ? (sm.islanded ? 'network split into islands' : `${sm.overloads_after} overload(s) after outage`)
@@ -69,7 +69,7 @@ export default function History() {
                     </div>
                   </div>
                   {open && (
-                    <div className="mt-4 border-t border-grid-100 pt-4">
+                    <div className="mt-4 border-t border-line pt-4">
                       {r.type === 'contingency'
                         ? <ContingencyResults data={payload} grid={snapshot} />
                         : <BaseResults result={payload} grid={snapshot} />}

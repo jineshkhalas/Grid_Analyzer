@@ -55,7 +55,7 @@ export default function ScenarioPanel({ grid, scenario, onSelect }) {
       <ErrorBox>{error}</ErrorBox>
       {loading && <Spinner label="Loading scenarios..." />}
       {!loading && list.length === 0 && !draft && <EmptyState title="No scenarios yet">A scenario overrides generation and demand on some buses, for example an evening peak. The saved grid stays unchanged.</EmptyState>}
-      <ul className="divide-y divide-grid-100">
+      <ul className="divide-y divide-line">
         {list.map((s) => (
           <li key={s.id} className="flex flex-wrap items-center justify-between gap-2 py-2">
             <span className="font-medium">{s.name}</span>
@@ -70,13 +70,13 @@ export default function ScenarioPanel({ grid, scenario, onSelect }) {
         ))}
       </ul>
       {draft ? (
-        <div className="space-y-3 rounded-md border border-grid-200 bg-grid-50 p-3">
+        <div className="space-y-3 rounded-md border border-line bg-inset p-3">
           <Field label="Scenario name" id="scenario-name">
             <input id="scenario-name" className={inputClass} value={draft.name} onChange={(e) => setDraft({ ...draft, name: e.target.value })} />
           </Field>
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             {grid.buses.map((b) => (
-              <fieldset key={b.id} className="rounded border border-grid-200 bg-white p-2">
+              <fieldset key={b.id} className="min-w-0 rounded border border-line bg-panel p-2">
                 <legend className="px-1 text-sm font-semibold">{b.id} {b.name}</legend>
                 <div className="grid grid-cols-2 gap-2">
                   <Field label="Generation" id={`sg-${b.id}`}><input id={`sg-${b.id}`} className={inputClass} type="number" step="any" min="0" value={draft.overrides[b.id]?.generation ?? 0} onChange={(e) => setOv(b.id, 'generation', e.target.value)} /></Field>
@@ -96,7 +96,7 @@ export default function ScenarioPanel({ grid, scenario, onSelect }) {
           {grid.buses.some((b) => b.id === 'B5') && <Button onClick={startSample}>New scenario from sample "Evening peak"</Button>}
         </div>
       )}
-      <p className="text-xs text-slate-600">Scenarios must keep total generation equal to total demand; the analysis reports an error otherwise.</p>
+      <p className="text-xs text-muted">Scenarios must keep total generation equal to total demand; the analysis reports an error otherwise.</p>
     </div>
   );
 }

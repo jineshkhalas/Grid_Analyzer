@@ -4,8 +4,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: '#dbeafe',
-        grid: { 50: '#0b1629', 100: '#10243d', 200: '#1a3858', 600: '#22d3ee', 700: '#06b6d4', 900: '#07111f' },
+        canvas: '#171d23',
+        inset: '#12181d',
+        panel: '#20282f',
+        raised: '#2a343c',
+        line: '#3b474f',
+        ink: '#e5e9e9',
+        muted: '#a7b2b7',
+        accent: { DEFAULT: '#86bbaf', hover: '#a3cfc3' },
       },
       fontFamily: {
         sans: ['"Segoe UI"', 'system-ui', '-apple-system', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
