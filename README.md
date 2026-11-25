@@ -127,7 +127,7 @@ npm run dev
 `npm install` downloads the packages listed in `package.json`: **react/react-dom** (UI), **react-router-dom** (pages), **@xyflow/react** (network diagram), **axios** (calls the Python API), **firebase** (database and sign-in), **vite** (dev server), **tailwindcss/postcss/autoprefixer** (styling), **eslint** (code checks).
 3. Open **http://localhost:5173**. Keep this terminal running; stop it with **Ctrl + C**.
 
-Without a `.env` file the app starts in **demo mode** (see banner on the dashboard).
+The frontend connects to the linked Firebase project `grid-analyzer-6da28` by default. To use browser-only demo mode, copy `frontend/.env.example` to `frontend/.env`, leave the Firebase values empty, and restart Vite.
 
 ## 4. Run the backend
 
@@ -164,7 +164,9 @@ uvicorn main:app --reload
 
 ---
 
-## 5. Firebase setup (optional, needed to use Firestore)
+## 5. Firebase configuration
+
+The linked web app uses anonymous sign-in and the default Firestore database in Mumbai (`asia-south1`). The Firebase CLI project alias is in `.firebaserc`. To connect your own project instead, follow the steps below.
 
 1. Firebase console > **Add project** (Analytics not needed).
 2. **Project settings (gear) > General > Your apps > Web (`</>`)**: register an app (skip Hosting).
@@ -258,7 +260,7 @@ Push problems: `remote origin already exists` > `git remote set-url origin <url>
 | Port already in use                  | Stop the older terminal (Ctrl + C) or use another port: `uvicorn main:app --reload --port 8001` and set `VITE_API_BASE_URL=http://localhost:8001`. The frontend port 5173 is fixed; close the other Vite. |
 | CORS error in browser console        | Open the app on `http://localhost:5173` exactly. For another origin set `CORS_ORIGINS` (comma-separated) before starting Uvicorn.                                                                         |
 | "Cannot reach the analysis API"      | Backend not running or wrong `VITE_API_BASE_URL`. Open http://localhost:8000/api/health.                                                                                                                    |
-| Dashboard still says demo mode       | `.env` missing, wrongly named, or dev server not restarted. Names must start with `VITE_`.                                                                                                                |
+| Dashboard still says demo mode       | `.env` may contain empty or incomplete Firebase overrides. Remove those overrides to use the linked project, then restart Vite.                                                                                                                |
 | `permission-denied` from Firestore | Rules not published, Anonymous sign-in not enabled, or you changed browser/profile (new uid).                                                                                                                 |
 | Reactance / capacity invalid         | Both must be numbers greater than 0.                                                                                                                                                                          |
 | "Unbalanced"                         | Generation total must equal demand total; fix values or use the balance button.                                                                                                                               |
@@ -270,6 +272,6 @@ Push problems: `remote origin already exists` > `git remote set-url origin <url>
 
 ## 9. Deployment (optional, untested guidance)
 
-- **Frontend:** `cd frontend && npm run build` creates `dist/`, a static site (the app uses hash routing so no rewrite rules are needed). Upload to any static host (Netlify, Vercel, Firebase Hosting, GitHub Pages). Set `VITE_API_BASE_URL` and the `VITE_FIREBASE_*` variables in the host's build settings (they are baked in at build time). In Firebase **Authentication > Settings > Authorized domains** add your site's domain.
+- **Frontend:** `cd frontend && npm run build` creates `dist/`, a static site (the app uses hash routing so no rewrite rules are needed). Upload to any static host (Netlify, Vercel, Firebase Hosting, GitHub Pages). Set `VITE_API_BASE_URL` in the host's build settings. Set the `VITE_FIREBASE_*` variables only to override the linked project. In Firebase **Authentication > Settings > Authorized domains** add your site's domain.
 - **Backend:** any host that runs Python (Render, Railway, Fly.io, a VM). Install `requirements.txt`; start with `uvicorn main:app --host 0.0.0.0 --port $PORT`. Set `CORS_ORIGINS` to your deployed frontend URL (for example `https://my-app.netlify.app`). Use HTTPS for both.
 - **Firestore:** publish `firestore.rules`. The API is public and stateless; consider rate limiting if exposed widely.
