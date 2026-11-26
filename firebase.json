@@ -1,4 +1,7 @@
 {
+  "hosting": {
+    "public": "frontend/dist"
+  },
   "firestore": {
     "database": "(default)",
     "location": "asia-south1",

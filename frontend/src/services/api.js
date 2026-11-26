@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+const localApi = import.meta.env.DEV || ['localhost', '127.0.0.1'].includes(window.location.hostname);
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || (localApi ? 'http://localhost:8000' : '');
 const client = axios.create({ baseURL: `${API_BASE_URL}/api`, timeout: 20000 });
 
 const num = (v) => (v === '' || v === null || v === undefined ? NaN : Number(v));

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { BaseResults, ContingencyResults } from '../components/AnalysisPanels.jsx';
 import { Button, Card, EmptyState, ErrorBox, Field, Notice, Spinner, inputClass } from '../components/UI.jsx';
 import { useGrid } from '../context/GridContext.jsx';
-import { runAnalysis, runContingency } from '../services/api.js';
+import { API_BASE_URL, runAnalysis, runContingency } from '../services/api.js';
 import { listScenarios, saveResult } from '../services/storage.js';
 import { validateGrid } from '../services/validation.js';
 
@@ -51,6 +51,16 @@ export default function Analysis() {
       setMessage('Result saved. Find it under Saved results.');
     } catch (e) { setError(`Could not save the result: ${e.message}`); } finally { setBusy(false); }
   };
+
+  if (!API_BASE_URL) {
+    return (
+      <>
+        <h1 className="text-2xl font-semibold">Analysis</h1>
+        <Notice>Base-case and outage calculations will be available once the analysis API is connected.</Notice>
+        <Link className="inline-block text-sm font-semibold text-grid-600 underline" to="/editor">Open grid editor</Link>
+      </>
+    );
+  }
 
   const tabBtn = (id, label) => (
     <button type="button" role="tab" aria-selected={tab === id} onClick={() => setTab(id)}
