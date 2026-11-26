@@ -37,7 +37,6 @@ React 18 + Vite (JavaScript), Tailwind CSS 3, `@xyflow/react`, Axios, Firebase W
 ```
 GridAnalyzer/
 ├── README.md
-├── CLAUDEBUILDNOTES.md
 ├── firestore.rules
 ├── .gitignore
 ├── backend/
@@ -260,7 +259,7 @@ Push problems: `remote origin already exists` > `git remote set-url origin <url>
 | Port already in use                  | Stop the older terminal (Ctrl + C) or use another port: `uvicorn main:app --reload --port 8001` and set `VITE_API_BASE_URL=http://localhost:8001`. The frontend port 5173 is fixed; close the other Vite. |
 | CORS error in browser console        | Open the app on `http://localhost:5173` exactly. For another origin set `CORS_ORIGINS` (comma-separated) before starting Uvicorn.                                                                         |
 | "Cannot reach the analysis API"      | Backend not running or wrong `VITE_API_BASE_URL`. Open http://localhost:8000/api/health.                                                                                                                    |
-| Dashboard still says demo mode       | `.env` may contain empty or incomplete Firebase overrides. Remove those overrides to use the linked project, then restart Vite.                                                                                                                |
+| Dashboard still says demo mode       | `.env` may contain empty or incomplete Firebase overrides. Remove those overrides to use the linked project, then restart Vite.                                                                             |
 | `permission-denied` from Firestore | Rules not published, Anonymous sign-in not enabled, or you changed browser/profile (new uid).                                                                                                                 |
 | Reactance / capacity invalid         | Both must be numbers greater than 0.                                                                                                                                                                          |
 | "Unbalanced"                         | Generation total must equal demand total; fix values or use the balance button.                                                                                                                               |
